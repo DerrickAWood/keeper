@@ -19,10 +19,11 @@
             >Home</router-link
           >
         </li>
+        <!-- this went in list item below -->
+        <!-- v-if="$auth.isAuthenticated"
+          :class="{ active: $route.name == 'dashboard' }" -->
         <li
           class="nav-item"
-          v-if="$auth.isAuthenticated"
-          :class="{ active: $route.name == 'dashboard' }"
         >
           <router-link class="nav-link" :to="{ name: 'dashboard' }"
             >My-Dashboard</router-link
