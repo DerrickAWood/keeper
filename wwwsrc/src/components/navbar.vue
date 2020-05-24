@@ -29,6 +29,13 @@
             >My-Dashboard</router-link
           >
         </li>
+        <li
+          class="nav-item"
+        >
+          <router-link class="nav-link" :to="{ name: 'vault' }"
+            >Vault</router-link
+          >
+        </li>
       </ul>
       <span class="navbar-text">
         <button

@@ -30,6 +30,7 @@
         <h1>{{keep.shares}}</h1>
         <h1>{{keep.keeps}}</h1>
         <button @click="deleteKeep(keep.id)" class="btn btn-danger">Delete</button>
+        <button @click="addMyKeep(keep.id)" class="btn btn-warning">Add to My-Keeps</button>
       </div>
     </div>
   </div>
@@ -56,6 +57,9 @@ export default {
     },
     createKeep(){
       this.$store.dispatch("createKeep", this.newKeep);
+    },
+    addMyKeep(keepId){
+      this.$store.dispatch("addMyKeep", keepId)
     }
   },
   component:{}
