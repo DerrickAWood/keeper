@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 
-// ANCHOR get vaults route to work
 namespace Keepr.Controllers
 {
     [ApiController]

@@ -38,6 +38,7 @@
 
 <script>
 export default {
+  name: "Vault",
   data(){
     return{
       newKeep: {}
