@@ -33,18 +33,18 @@ namespace Keepr.Services
             return _repo.Create(newVault);
         }
 
-        //  internal string Delete(int id, string userId)
-        //     {
-        //     Keep foundKeep = GetById(id);
-        //             if (foundKeep.UserId != userId)
-        //             {
-        //                 throw new Exception("not your Keep");
-        //             }
-        //             if (_repo.Delete(id, userId))
-        //             {
-        //                 return "deleted.";
-        //             }
-        //             throw new Exception("ooopps");
-        //     }
+         internal string Delete(int id, string userId)
+            {
+            Vault foundVault = GetById(id);
+                    if (foundVault.UserId != userId)
+                    {
+                        throw new Exception("not your Vault");
+                    }
+                    if (_repo.Delete(id, userId))
+                    {
+                        return "deleted.";
+                    }
+                    throw new Exception("ooopps");
+            }
     }
 }

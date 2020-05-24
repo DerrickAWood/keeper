@@ -43,10 +43,10 @@ export default {
   methods: {
     createVault(){
       this.$store.dispatch("createVault", this.newVault);
+    },
+    deleteVault(vaultId){
+      this.$store.dispatch("deleteVault", vaultId)
     }
-    // deleteKeep(keepId){
-    //   this.$store.dispatch("deleteKeep", keepId)
-    // },
   },
   component:{}
 };
