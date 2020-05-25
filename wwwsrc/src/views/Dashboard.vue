@@ -26,11 +26,18 @@
         <h1>{{keep.name}}</h1>
         <h1>{{keep.description}}</h1>
         <img :src="keep.img" class="img-fluid"  alt="">
-        <h1>{{keep.views}}</h1>
-        <h1>{{keep.shares}}</h1>
-        <h1>{{keep.keeps}}</h1>
+        <h1>Views:{{keep.views}}</h1>
+        <h1>Shares:{{keep.shares}}</h1>
+        <h1>Keeps{{keep.keeps}}</h1>
         <button @click="deleteKeep(keep.id)" class="btn btn-danger">Delete</button>
-        <button @click="addMyKeep(keep.id)" class="btn btn-warning">Add to My-Keeps</button>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button @click.prevent="addToVault()" class="dropdown-item btn btn-primary btn-sm" v-for="vault in Vaults" :key="vault.id">{{vault.name}}</button>
+          </div>
+  </div>
       </div>
     </div>
   </div>
@@ -38,7 +45,6 @@
 
 <script>
 export default {
-  name: "Vault",
   data(){
     return{
       newKeep: {}
@@ -46,10 +52,14 @@ export default {
   },
   mounted() {
      this.$store.dispatch("getKeeps")
+     this.$store.dispatch("getVaults")
   },
   computed: {
     keeps(){
       return this.$store.state.publicKeeps
+    },
+    Vaults(){
+      return this.$store.state.vaults
     }
   },
   methods: {
@@ -59,11 +69,11 @@ export default {
     createKeep(){
       this.$store.dispatch("createKeep", this.newKeep);
     },
-    addMyKeep(keepId){
-      this.$store.dispatch("addMyKeep", keepId)
+    addToVault(){
+      this.$store.dispatch("addToVault",)
     }
   },
-  component:{}
+  component:{ }
 };
 </script>
 
