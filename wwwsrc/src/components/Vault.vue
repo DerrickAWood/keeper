@@ -19,7 +19,19 @@
         <h1>{{vault.name}}</h1>
         <h1>{{vault.description}}</h1> 
         <button @click="deleteVault(vault.id)" class="btn btn-danger">Delete</button>
-        <button @click="ViewVault(keep.id)" class="btn btn-primary">View Keeps</button>
+
+
+        <button @click.prevent="viewVaultKeeps(vault.id)" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">View Keeps</button>
+          <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                 <!-- @click.prevent="viewVaultKeeps(vault.id)" -->
+                <div class="dropdown-item" v-for="vaultKeep in VaultKeeps" :key="vaultKeep.id">
+                  <h1> {{vaultKeep}} </h1>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -33,11 +45,19 @@ export default {
     }
   },
   mounted() {
+     this.$store.dispatch("getKeeps")
      this.$store.dispatch("getVaults")
+     this.$store.dispatch("getVaultKeeps")
   },
   computed: {
+    Keeps(){
+      return this.$store.state.publicKeeps
+    },
     Vaults(){
       return this.$store.state.vaults
+    },
+    VaultKeeps(){
+      return this.$store.state.vaultKeeps
     }
   },
   methods: {
@@ -46,6 +66,16 @@ export default {
     },
     deleteVault(vaultId){
       this.$store.dispatch("deleteVault", vaultId)
+    },
+    
+    // ANCHOR cannot access VaultKeeps vaultId even though in debugger has it, though it is inside an array.
+
+   viewVaultKeeps(vaultId){
+     debugger
+      // this.$store.dispatch("viewVaultKeeps", vaultId)
+      if(vaultId == this.VaultKeeps.vaultId){
+        console.log("something")
+      }
     }
   },
   component:{}
