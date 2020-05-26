@@ -18,6 +18,16 @@ namespace Keepr.Services
             return _repo.Get();
         }
 
+        internal IEnumerable<VaultKeepModel> GetKeepByVaultId(int id, string userId)
+        {
+            Keep foundKeep = GetById(id);
+                    if (foundKeep.UserId != userId)
+                    {
+                        throw new Exception("not your Keep");
+                    }
+            return _repo.GetKeepByVaultId(id, userId);
+        }
+
         public Keep GetById(int id)
             {
             Keep foundKeep = _repo.GetById(id);

@@ -35,7 +35,7 @@
             Dropdown button
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <button @click.prevent="addToVault(vault.id)" class="dropdown-item btn btn-primary btn-sm" v-for="vault in Vaults" :key="vault.id">{{vault.name}}</button>
+            <button @click.prevent="addToVault(vault.id, keep.id)" class="dropdown-item btn btn-primary btn-sm" v-for="vault in Vaults" :key="vault.id">{{vault.name}}</button>
           </div>
   </div>
       </div>
@@ -69,8 +69,8 @@ export default {
     createKeep(){
       this.$store.dispatch("createKeep", this.newKeep);
     },
-    addToVault(vaultId){
-      this.$store.dispatch("addToVault",)
+    addToVault(vaultId, keepId){
+      this.$store.dispatch("addToVault", vaultId, keepId)
     }
   },
   component:{ }

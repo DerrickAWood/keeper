@@ -33,6 +33,19 @@ namespace Keepr.Controllers
             };
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<Keep>> GetById(int id)
+        {
+            try
+            {
+                return Ok(_ks.GetById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            };
+        }
+
         [HttpPost]
         [Authorize]
         public ActionResult<Keep> Post([FromBody] Keep newKeep)

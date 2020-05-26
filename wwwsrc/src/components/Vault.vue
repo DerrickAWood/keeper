@@ -26,8 +26,10 @@
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                  <!-- @click.prevent="viewVaultKeeps(vault.id)" -->
-                <div class="dropdown-item" v-for="vaultKeep in VaultKeeps" :key="vaultKeep.id">
-                  <h1> {{vaultKeep}} </h1>
+                <div class="dropdown-item">
+                  <div>
+                    <h1 id="keep"> </h1>
+                  </div>
                 </div>
               </div>
             </div>
@@ -67,14 +69,21 @@ export default {
     deleteVault(vaultId){
       this.$store.dispatch("deleteVault", vaultId)
     },
-    
+
     // ANCHOR cannot access VaultKeeps vaultId even though in debugger has it, though it is inside an array.
 
    viewVaultKeeps(vaultId){
-     debugger
       // this.$store.dispatch("viewVaultKeeps", vaultId)
-      if(vaultId == this.VaultKeeps.vaultId){
-        console.log("something")
+      for(let i = 0; i < this.VaultKeeps.length; i++){
+        for(let x = 0; x < this.Keeps.length; x++){
+          let vk = this.VaultKeeps[i]
+          let  k = this.Keeps[x]
+               if(vk.keepId == k.id && vaultId == vk.vaultId){
+                console.log(vk.keepId)
+              console.log(k)
+              document.getElementById("keep").innerHTML = `${k.name + " " + k.description}`
+            }
+        }
       }
     }
   },

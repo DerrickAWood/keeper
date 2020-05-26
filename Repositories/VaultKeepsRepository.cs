@@ -20,7 +20,6 @@ namespace Keepr.Repositories
             string sql = "SELECT * FROM vaultkeeps;";
             return _db.Query<VaultKeep>(sql);
         }
-
          internal VaultKeep GetById(int id)
             {
             string sql = "SELECT * FROM vaultkeeps WHERE id = @id";

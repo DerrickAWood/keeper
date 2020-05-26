@@ -75,6 +75,12 @@ export default new Vuex.Store({
       let res = await api.post("vaults", newVault)
       dispatch("getVaults")
     },
+// FIXME 
+    async addToVault({commit,dispatch}, newVaultKeep){
+      let res = await api.post("vaultkeeps", newVaultKeep)
+      dispatch("getVaults")
+      dispatch("getKeeps")
+    },
 
     async deleteKeep({commit,dispatch}, keepId){
       try {
