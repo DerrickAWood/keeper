@@ -53,6 +53,8 @@ export default {
   mounted() {
      this.$store.dispatch("getKeeps")
      this.$store.dispatch("getVaults")
+    this.$store.dispatch("setBearer", this.$auth.bearer);
+    console.log(this.$auth.user.sub)
   },
   computed: {
     keeps(){
@@ -69,10 +71,12 @@ export default {
     createKeep(){
       this.$store.dispatch("createKeep", this.newKeep);
     },
-    addToVault(vaultId, keepId){
+    // ANCHOR just got access to keepid, get 400, do i need userid?
+    addToVault(vaultId, keepId, userId){
       let newVaultKeep = {
         keepId: keepId,
-        vaultId: vaultId
+        vaultId: vaultId,
+        userId: this.$auth.user.sub
       }
       console.log(newVaultKeep)
       this.$store.dispatch("addToVault", newVaultKeep)
