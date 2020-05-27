@@ -18,18 +18,21 @@
       <div class="col-3 border rounded m-3" v-for="vault in Vaults" :key="vault.id">
         <h1>{{vault.name}}</h1>
         <h1>{{vault.description}}</h1> 
+          <div v-for="vk in VaultKeeps" :key="vk.id">
+            <h1 v-if="vk.vaultId == vault.id">{{vk}}</h1>
+          </div>
         <button @click="deleteVault(vault.id)" class="btn btn-danger">Delete</button>
 
-
-        <button @click.prevent="viewVaultKeeps(vault.id)" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">View Keeps</button>
+<!-- @click.prevent="viewVaultKeeps(vault.id)" -->
+        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">View Keeps</button>
           <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                  <!-- @click.prevent="viewVaultKeeps(vault.id)" -->
                 <div class="dropdown-item">
-                  <div>
+                  <!-- <div>
                     <h1 id="keep"> </h1>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -73,18 +76,20 @@ export default {
     // ANCHOR cannot access VaultKeeps vaultId even though in debugger has it, though it is inside an array.
 
    viewVaultKeeps(vaultId){
+
+     console.log(this.VaultKeeps)
       // this.$store.dispatch("viewVaultKeeps", vaultId)
-      for(let i = 0; i < this.VaultKeeps.length; i++){
-        for(let x = 0; x < this.Keeps.length; x++){
-          let vk = this.VaultKeeps[i]
-          let  k = this.Keeps[x]
-               if(vk.keepId == k.id && vaultId == vk.vaultId){
-                console.log(vk.keepId)
-              console.log(k)
-              document.getElementById("keep").innerHTML = `${k.name + " " + k.description}`
-            }
-        }
-      }
+      // for(let i = 0; i < this.VaultKeeps.length; i++){
+      //   for(let x = 0; x < this.Keeps.length; x++){
+      //     let vk = this.VaultKeeps[i]
+      //     let  k = this.Keeps[x]
+      //          if(vk.keepId == k.id && vaultId == vk.vaultId){
+      //           console.log(vk.keepId)
+      //         console.log(k)
+      //         document.getElementById("keep").innerHTML = `${k.name + " " + k.description}`
+      //       }
+      //   }
+      // }
     }
   },
   component:{}

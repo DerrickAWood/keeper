@@ -70,7 +70,12 @@ export default {
       this.$store.dispatch("createKeep", this.newKeep);
     },
     addToVault(vaultId, keepId){
-      this.$store.dispatch("addToVault", vaultId, keepId)
+      let newVaultKeep = {
+        keepId: keepId,
+        vaultId: vaultId
+      }
+      console.log(newVaultKeep)
+      this.$store.dispatch("addToVault", newVaultKeep)
     }
   },
   component:{ }
