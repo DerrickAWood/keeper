@@ -18,8 +18,19 @@
       <div class="col-3 border rounded m-3" v-for="vault in Vaults" :key="vault.id">
         <h1>{{vault.name}}</h1>
         <h1>{{vault.description}}</h1> 
+        <hr>
+          <div v-for="keep in Keeps" :key="keep.id">
           <div v-for="vk in VaultKeeps" :key="vk.id">
-            <h1 v-if="vk.vaultId == vault.id">{{vk}}</h1>
+            <div v-if="keep.id == vk.keepId && vk.vaultId == vault.id">
+              <p>Name: {{keep.name}}</p>
+              <p>Description: {{keep.description}}</p>
+              <img :src="keep.img" class="img-fluid"  alt="">
+              <p>Views:{{keep.views}}</p>
+              <p>Shares:{{keep.shares}}</p>
+              <p>Keeps{{keep.keeps}}</p>
+            <hr>
+            </div>
+          </div>
           </div>
         <button @click="deleteVault(vault.id)" class="btn btn-danger">Delete</button>
 
@@ -76,8 +87,6 @@ export default {
     // ANCHOR cannot access VaultKeeps vaultId even though in debugger has it, though it is inside an array.
 
    viewVaultKeeps(vaultId){
-
-     console.log(this.VaultKeeps)
       // this.$store.dispatch("viewVaultKeeps", vaultId)
       // for(let i = 0; i < this.VaultKeeps.length; i++){
       //   for(let x = 0; x < this.Keeps.length; x++){
