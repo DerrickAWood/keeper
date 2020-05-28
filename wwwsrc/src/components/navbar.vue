@@ -26,13 +26,13 @@
           class="nav-item"
         >
           <router-link class="nav-link" :to="{ name: 'dashboard' }"
-            >My-Dashboard</router-link
+            >Dashboard</router-link
           >
         </li>
         <li
           class="nav-item"
         >
-          <router-link class="nav-link" :to="{ name: 'vault' }"
+          <router-link v-show="$auth.isAuthenticated" class="nav-link" :to="{ name: 'vault' }"
             >Vault</router-link
           >
         </li>

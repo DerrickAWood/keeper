@@ -14,41 +14,34 @@
       <button type="submit" class="btn btn-primary btn-lg">SUBMIT</button>
     </form>
 
-     <div class="row justify-content-center">
-      <div class="col-3 border rounded m-3" v-for="vault in Vaults" :key="vault.id">
-        <h1>{{vault.name}}</h1>
-        <h1>{{vault.description}}</h1> 
-        <hr>
-          <div v-for="keep in Keeps" :key="keep.id">
-          <div v-for="vk in VaultKeeps" :key="vk.id">
-            <div v-if="keep.id == vk.keepId && vk.vaultId == vault.id">
-              <p>Name: {{keep.name}}</p>
-              <p>Description: {{keep.description}}</p>
-              <img :src="keep.img" class="img-fluid"  alt="">
-              <p>Views:{{keep.views}}</p>
-              <p>Shares:{{keep.shares}}</p>
-              <p>Keeps{{keep.keeps}}</p>
-            <hr>
-            </div>
-          </div>
-          </div>
-        <button @click="deleteVault(vault.id)" class="btn btn-danger">Delete</button>
-
-<!-- @click.prevent="viewVaultKeeps(vault.id)" -->
-        <button  type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">View Keeps</button>
-          <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content">
-                 <!-- @click.prevent="viewVaultKeeps(vault.id)" -->
-                <div class="dropdown-item">
-                  <!-- <div>
-                    <h1 id="keep"> </h1>
-                  </div> -->
-                </div>
+    <div v-for="vault in Vaults" :key="vault.id">
+     <div v-if="$auth.user.sub == vault.userId">
+      <div class="row justify-content-center">
+      <div class="col-3 border rounded m-3" >
+        <div  >
+          <h1>{{vault.name}}</h1>
+          <h1>{{vault.description}}</h1> 
+          <hr>
+            <div v-for="keep in Keeps" :key="keep.id">
+            <div v-for="vk in VaultKeeps" :key="vk.id">
+              <div v-if="keep.id == vk.keepId && vk.vaultId == vault.id">
+                <p>Name: {{keep.name}}</p>
+                <p>Description: {{keep.description}}</p>
+                <img :src="keep.img" class="img-fluid"  alt="">
+                <p>Views:{{keep.views}}</p>
+                <p>Shares:{{keep.shares}}</p>
+                <p>Keeps:{{keep.keeps}}</p>
+                <button @click="deleteVaultKeep(vk.id)" class="btn btn-warning btn-block">Delete Keep From Vault</button>
+              <hr>
               </div>
             </div>
-          </div>
+            </div>
+          <button @click="deleteVault(vault.id)" class="btn btn-danger">Delete Vault</button>
+
       </div>
+      </div>
+      </div>
+    </div>
     </div>
   </div>
 </template>
@@ -64,6 +57,7 @@ export default {
      this.$store.dispatch("getKeeps")
      this.$store.dispatch("getVaults")
      this.$store.dispatch("getVaultKeeps")
+    this.$store.dispatch("setBearer", this.$auth.bearer);
   },
   computed: {
     Keeps(){
@@ -82,6 +76,10 @@ export default {
     },
     deleteVault(vaultId){
       this.$store.dispatch("deleteVault", vaultId)
+    },
+
+    deleteVaultKeep(vaultKeepId){
+      this.$store.dispatch("deleteVaultKeep", vaultKeepId)
     },
 
     // ANCHOR cannot access VaultKeeps vaultId even though in debugger has it, though it is inside an array.

@@ -25,10 +25,16 @@ namespace Keepr.Controllers
              _ks = ks;
         }
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<Vault>> GetAll()
         {
             try
             {
+                Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                if (user == null)
+                {
+                    throw new Exception("you must be logged in to see vaults");
+                }
                 return Ok(_vs.GetAll());
             }
             catch (Exception e)

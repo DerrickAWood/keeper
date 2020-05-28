@@ -32,10 +32,14 @@
         <button @click="deleteKeep(keep.id)" class="btn btn-danger">Delete</button>
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown button
+            Add To Vault
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <button @click.prevent="addToVault(vault.id, keep.id)" class="dropdown-item btn btn-primary btn-sm" v-for="vault in Vaults" :key="vault.id">{{vault.name}}</button>
+            <button @click.prevent="addToVault(vault.id, keep.id)" class="dropdown-item btn btn-primary btn-sm" v-for="vault in Vaults" :key="vault.id">
+              <div v-if="$auth.user.sub == vault.userId">
+              {{vault.name}}
+              </div>
+              </button>
           </div>
   </div>
       </div>
@@ -76,7 +80,7 @@ export default {
       let newVaultKeep = {
         keepId: keepId,
         vaultId: vaultId,
-        userId: this.$auth.user.sub
+         userId: this.$auth.user.sub
       }
       console.log(newVaultKeep)
       this.$store.dispatch("addToVault", newVaultKeep)
