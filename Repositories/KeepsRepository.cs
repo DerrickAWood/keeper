@@ -57,6 +57,24 @@ namespace Keepr.Repositories
                     int affectedRows = _db.Execute(sql, new { id, userId });
                     return affectedRows == 1;
             }
+
+            internal bool Edit(Keep keepToUpdate, string userId)
+            {
+                keepToUpdate.UserId = userId;
+                string sql = @"
+                UPDATE keeps 
+                SET
+                name = @Name, 
+                description = @description,
+                img = @Img, 
+                isPrivate = @IsPrivate, 
+                shares = @Shares, 
+                views = @Views,
+                keeps = @Keeps, 
+                AND userId = @UserId";
+                int affectedRows = _db.Execute(sql, keepToUpdate);
+                return affectedRows == 1;
+            }
     }
 }
 

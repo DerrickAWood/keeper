@@ -62,6 +62,27 @@ namespace Keepr.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        [Authorize]
+        public ActionResult<Keep> Edit(int id, [FromBody] Keep keepToUpdate)
+        {
+            try
+            {
+               keepToUpdate.Id = id;
+               Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                if (user == null)
+                {
+                    throw new Exception("you must be logged in");
+                }
+                string userId = user.Value;
+                return Ok(_ks.Edit(keepToUpdate, userId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     [Authorize]
     [HttpDelete("{id}")]
     public ActionResult<string> Delete(int id)

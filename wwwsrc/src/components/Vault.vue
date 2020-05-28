@@ -18,7 +18,8 @@
      <div v-if="$auth.user.sub == vault.userId">
       <div class="row justify-content-center">
       <div class="col-3 border rounded m-3" >
-        <div  >
+        <div>
+          <h1>My vault:</h1>
           <h1>{{vault.name}}</h1>
           <h1>{{vault.description}}</h1> 
           <hr>
@@ -40,10 +41,28 @@
 
       </div>
       </div>
+        
+        </div>
       </div>
+      </div>
+
+        <div class="row justify-content-center">
+        <div class="col-4 border rounded m-3" >
+        <h1>My Keeps:</h1>
+            <div v-for="keep in Keeps" :key="keep.id">
+            <div v-if="keep.userId == $auth.user.sub">
+              <p>Name: {{keep.name}}</p>
+              <p>Description: {{keep.description}}</p>
+              <img :src="keep.img" class="img-fluid"  alt="">
+              <p>Views:{{keep.views}}</p>
+              <p>Shares:{{keep.shares}}</p>
+              <p>Keeps:{{keep.keeps}}</p>
+          </div>
+          </div>
+        </div>
+        </div>
+
     </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -81,23 +100,6 @@ export default {
     deleteVaultKeep(vaultKeepId){
       this.$store.dispatch("deleteVaultKeep", vaultKeepId)
     },
-
-    // ANCHOR cannot access VaultKeeps vaultId even though in debugger has it, though it is inside an array.
-
-   viewVaultKeeps(vaultId){
-      // this.$store.dispatch("viewVaultKeeps", vaultId)
-      // for(let i = 0; i < this.VaultKeeps.length; i++){
-      //   for(let x = 0; x < this.Keeps.length; x++){
-      //     let vk = this.VaultKeeps[i]
-      //     let  k = this.Keeps[x]
-      //          if(vk.keepId == k.id && vaultId == vk.vaultId){
-      //           console.log(vk.keepId)
-      //         console.log(k)
-      //         document.getElementById("keep").innerHTML = `${k.name + " " + k.description}`
-      //       }
-      //   }
-      // }
-    }
   },
   component:{}
 };

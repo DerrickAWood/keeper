@@ -43,6 +43,20 @@ namespace Keepr.Services
             return _repo.Create(newKeep);
         }
 
+        internal Keep Edit(Keep keepToUpdate,string userId)
+        {
+            Keep foundKeep = GetById(keepToUpdate.Id);
+            if(foundKeep.UserId != userId)
+            {
+                throw new Exception("couldnt make private");
+            }
+            if(_repo.Edit(keepToUpdate, userId))
+            {
+                return keepToUpdate;
+            }
+            throw new Exception("not your keep");
+        }
+
          internal string Delete(int id, string userId)
             {
             Keep foundKeep = GetById(id);
