@@ -14,11 +14,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" :class="{ active: $route.name == 'home' }">
+        <!-- <li class="nav-item" :class="{ active: $route.name == 'home' }">
           <router-link :to="{ name: 'home' }" class="nav-link"
             >Home</router-link
           >
-        </li>
+        </li> -->
         <!-- this went in list item below -->
         <!-- v-if="$auth.isAuthenticated"
           :class="{ active: $route.name == 'dashboard' }" -->
@@ -26,7 +26,7 @@
           class="nav-item"
         >
           <router-link class="nav-link" :to="{ name: 'dashboard' }"
-            >Dashboard</router-link
+            >Home</router-link
           >
         </li>
         <li
