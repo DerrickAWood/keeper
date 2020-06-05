@@ -38,7 +38,7 @@
     </form>
 
     <div class="row justify-content-center">
-      <div class="col-3 border rounded m-3" v-for="keep in keeps" :key="keep.id">
+      <div class="col-md-3 border rounded m-3" v-for="keep in keeps" :key="keep.id">
         <h1>{{keep.name}}</h1>
         <h1>{{keep.description}}</h1>
         <img :src="keep.img" class="img-fluid" alt />
